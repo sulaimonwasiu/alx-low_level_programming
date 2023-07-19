@@ -22,6 +22,9 @@ int main(void)
 		if (count < 50)
 		{
 			printf("%ld, ", second);
+		} else
+		{
+			printf("%ld", second);
 		}
 		count++;
 	}
