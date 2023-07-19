@@ -19,7 +19,10 @@ int main(void)
 		store = second;
 		second = second + first;
 		first = store;
-		printf("%ld, ", second);
+		if (count < 50)
+		{
+			printf("%ld, ", second);
+		}
 		count++;
 	}
 	return (0);
