@@ -8,23 +8,23 @@
 
 int main(void)
 {
-	unsigned int first = 1, second = 2, store;
+	unsigned long int first = 1, second = 2, store;
 	int count = 3;
 
-	printf("%u, ", first);
-	printf("%u, ", second);
+	printf("%lu, ", first);
+	printf("%lu, ", second);
 
-	while (count <= 50)
+	while (count <= 98)
 	{
 		store = second;
 		second = second + first;
 		first = store;
 		if (count < 98)
 		{
-			printf("%u, ", second);
+			printf("%lu, ", second);
 		} else
 		{
-			printf("%u", second);
+			printf("%lu", second);
 		}
 		count++;
 	}
