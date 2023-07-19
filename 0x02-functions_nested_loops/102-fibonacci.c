@@ -9,7 +9,7 @@
 int main(void)
 {
 	long int first = 1, second = 2, store;
-	int count = 1;
+	int count = 3;
 
 	printf("%ld, ", first);
 	printf("%ld, ", second);
