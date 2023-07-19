@@ -8,7 +8,8 @@
 
 int main(void)
 {
-	int first = 1, second = 2, count = 2, store;
+	long long int first = 1, second = 2, store;
+	int count = 1;
 
 	printf("%d, ", first);
 	printf("%d, ", second);
