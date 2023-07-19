@@ -28,5 +28,6 @@ int main(void)
 		}
 		count++;
 	}
+	printf("\n");
 	return (0);
 }
