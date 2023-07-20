@@ -8,11 +8,11 @@
 
 int main(void)
 {
-	long long int first = 1.0, second = 2.0, store;
+	unsigned long int first = 1.0, second = 2.0, store;
 	int count = 3;
 
-	printf("%lld, ", first);
-	printf("%lld, ", second);
+	printf("%lu, ", first);
+	printf("%lu, ", second);
 
 	while (count <= 98)
 	{
@@ -21,10 +21,10 @@ int main(void)
 		first = store;
 		if (count < 98)
 		{
-			printf("%lld, ", second);
+			printf("%lu, ", second);
 		} else
 		{
-			printf("%lld", second);
+			printf("%lu", second);
 		}
 		count++;
 	}
