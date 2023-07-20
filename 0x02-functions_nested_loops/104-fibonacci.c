@@ -21,10 +21,10 @@ int main(void)
 		first = store;
 		if (count < 98)
 		{
-			printf("%Lf, ", second);
+			printf("%.0Lf, ", second);
 		} else
 		{
-			printf("%Lf", second);
+			printf("%.0Lf", second);
 		}
 		count++;
 	}
