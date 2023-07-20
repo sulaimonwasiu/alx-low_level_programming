@@ -11,8 +11,8 @@ int main(void)
 	long double first = 1, second = 2, store;
 	int count = 3;
 
-	printf("%Lf, ", first);
-	printf("%Lf, ", second);
+	printf("%.0Lf, ", first);
+	printf("%.0Lf, ", second);
 
 	while (count <= 98)
 	{
