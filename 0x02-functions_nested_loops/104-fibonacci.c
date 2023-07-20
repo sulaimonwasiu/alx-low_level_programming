@@ -8,11 +8,11 @@
 
 int main(void)
 {
-	long double first = 1, second = 2, store;
+	float first = 1.0, second = 2.0, store;
 	int count = 3;
 
-	printf("%.0Lf, ", first);
-	printf("%.0Lf, ", second);
+	printf("%.0f, ", first);
+	printf("%.0f, ", second);
 
 	while (count <= 98)
 	{
@@ -21,10 +21,10 @@ int main(void)
 		first = store;
 		if (count < 98)
 		{
-			printf("%.0Lf, ", second);
+			printf("%.0f, ", second);
 		} else
 		{
-			printf("%.0Lf", second);
+			printf("%.0f", second);
 		}
 		count++;
 	}
