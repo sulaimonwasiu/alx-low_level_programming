@@ -4,7 +4,7 @@
  * print_number - prints an integer
  * @n: the number
  *
- * Return: 0 success
+ * Return: void
  */
 
 void print_number(int n)
@@ -29,5 +29,4 @@ void print_number(int n)
 		n %= divisor;
 		divisor /= 10;
 	}
-	_putchar('\n');
 }
