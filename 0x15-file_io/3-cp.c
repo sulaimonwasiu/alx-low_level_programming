@@ -1,83 +1,51 @@
 #include "main.h"
 
-/**
- * file_from - to open and read file
- * @arg1: pointer to file
- * @ran: pointer to temp buffer
- *
- * Return: pointer to buffer
- */
-
-char *file_from(char *arg1, char *ran)
-{
-	int ff, cf;
-	ssize_t r, tb = 0;
-
-	ff = open(arg1, O_RDONLY);
-	if (ff == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", arg1);
-		exit(98);
-	}
-	while ((r = read(ff, ran + tb, 1024)) > 0)
-	{
-		tb = tb + r;
-	}
-	if (r == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", arg1);
-		exit(98);
-	}
-	cf = close(ff);
-	if (cf == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", ff);
-		exit(100);
-	}
-	return (ran);
-}
+#define MAXSIZE 1204
+#define SE STDERR_FILENO
 
 /**
- * main - copy content of a file to another file
- * @argc: number of arguments
- * @argv: pointer to an array of the arguments
- *
- * Return: 1 if successful, -1 otherwise
+ * main - create the copy bash script
+ * @ac: argument count
+ * @av: arguments as strings
+ * Return: 0
  */
-
-int main(int argc, char **argv)
+int main(int ac, char *av[])
 {
-	int ft, ct, count;
-	ssize_t w;
-	char *reading;
-	char ran[4096];
+	int input_fd, output_fd, istatus, ostatus;
+	char buf[MAXSIZE];
+	mode_t mode;
 
-	if (argc != 3)
-	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
-	}
-	reading = file_from(argv[1], ran);
-	ft = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (ft == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		exit(99);
-	}
-	while (reading[count])
-		count++;
-
-	w = write(ft, reading, count);
-	if (w == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		exit(99);
-	}
-	ct = close(ft);
-	if (ct == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", ft);
-		exit(100);
-	}
-	return (1);
+	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	if (ac != 3)
+		dprintf(SE, "Usage: cp file_from file_to\n"), exit(97);
+	input_fd = open(av[1], O_RDONLY);
+	if (input_fd == -1)
+		dprintf(SE, "Error: Can't read from file %s\n", av[1]), exit(98);
+	output_fd = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, mode);
+	if (output_fd == -1)
+		dprintf(SE, "Error: Can't write to %s\n", av[2]), exit(99);
+	do {
+		istatus = read(input_fd, buf, MAXSIZE);
+		if (istatus == -1)
+		{
+			dprintf(SE, "Error: Can't read from file %s\n", av[1]);
+			exit(98);
+		}
+		if (istatus > 0)
+		{
+			ostatus = write(output_fd, buf, (ssize_t) istatus);
+			if (ostatus == -1)
+			{
+				dprintf(SE, "Error: Can't write to %s\n", av[2]);
+				exit(99);
+			}
+		}
+	} while (istatus > 0);
+	istatus = close(input_fd);
+	if (istatus == -1)
+		dprintf(SE, "Error: Can't close fd %d\n", input_fd), exit(100);
+	ostatus = close(output_fd);
+	if (ostatus == -1)
+		dprintf(SE, "Error: Can't close fd %d\n", output_fd), exit(100);
+	return (0);
 }
