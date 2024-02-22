@@ -5,51 +5,40 @@ NAME = school
 RM = rm -f
 
 
-# Build the executable
 all: $(NAME)
 
-# Build object files, with dependency on m.h
 $(OBJ): m.h
 
-# Link object files into executable
 $(NAME): $(OBJ)
 	$(CC) -o $(NAME) $^ $(CFLAGS)
 
-# Clean object files
+
 oclean:
 	$(RM) $(OBJ)
 
-# Clean everything (executable and object files)
 fclean: oclean
 	$(RM) $(NAME)
 
-# Recompile everything
 re: fclean all
 
-# Ensure m.h exists
 m.h:
 	@echo "Missing header file m.h. Please create it."
 	@exit 1
 
-# Define phony rules
 .PHONY: all clean oclean fclean re
 
-# Don't allow targets with the same name as rules
 %.o: %.c
 	@echo "Rule %.o: %.c is not allowed."
 	@exit 1
 
-# Enforce maximum number of CC and RM uses
 $(CC) $(RM) -n:
 	@echo "Exceeded maximum usage of $(CC) or $(RM)."
 	@exit 1
 
-# Ensure no $(OBJ) rule exists
 $(OBJ):
 	@echo "Rule $(OBJ) is not allowed."
 	@exit 1
 
-# Ensure no $(CFLAGS) usage in recipes
 $(CFLAGS):
 	@echo "Using $(CFLAGS) in recipes is not allowed."
 	@exit 1
