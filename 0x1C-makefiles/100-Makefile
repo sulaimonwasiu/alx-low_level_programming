@@ -22,23 +22,18 @@ fclean: oclean
 re: fclean all
 
 m.h:
-	@echo "Missing header file m.h. Please create it."
 	@exit 1
 
 .PHONY: all clean oclean fclean re
 
 %.o: %.c
-	@echo "Rule %.o: %.c is not allowed."
 	@exit 1
 
 $(CC) $(RM) -n:
-	@echo "Exceeded maximum usage of $(CC) or $(RM)."
 	@exit 1
 
 $(OBJ):
-	@echo "Rule $(OBJ) is not allowed."
 	@exit 1
 
 $(CFLAGS):
-	@echo "Using $(CFLAGS) in recipes is not allowed."
 	@exit 1
